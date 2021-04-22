@@ -1,96 +1,76 @@
-/*
- * Copyright (c) 2020 Cynthia K. Rey
- * Licensed under the Open Software License version 3.0
- */
+
 
 const { existsSync, createReadStream } = require('fs')
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 const mime = require('mime-types')
 const https = require('https')
 const ejs = require('ejs')
 const { minify } = require('html-minifier')
+const db = require("../db");
 
 const markdown = require('./src/markdown')
 const Formatter = require('./src/formatter')
+const fs = require("fs");
+const scrape = require('website-scraper');
+const config = require("../config.json");
 
 // Stuff
 const assets = require('./src/assets')
-const config = require('./config')
+
 const testData = require('./example')
+const express = require("express");
 
-require('http')
-  .createServer((req, res) => {
-    if (![ 'GET', 'POST' ].includes(req.method)) {
-      res.writeHead(405)
-      return res.end()
-    }
+module.exports.load = async(client) => {
 
-    // Assets
-    if (req.url.startsWith('/dist/')) {
-      const target = req.url.split('/')[2]
-      const file = resolve(__dirname, 'dist', target)
-      if (existsSync(file) && target && target !== '.' && target !== '..') {
-        res.setHeader('content-type', mime.lookup(file) || 'application/octet-stream')
-        return createReadStream(file).pipe(res)
-      }
-    }
+let app = express();
+ app.engine("html", ejs.renderFile);
+    app.set('view engine', 'ejs');
+    app.set('views', join(__dirname, "./views"));
 
-    // Attachments
-    if (req.url.startsWith('/attachments/')) {
-      const headers = {}
-      if (req.headers.range) {
-        headers.range = req.headers.range
-      }
 
-      https.get({
-        host: 'cdn.discordapp.com',
-        path: req.url,
-        port: 443,
-        headers
-      }, resp => {
-        delete resp.headers['content-disposition']
-        res.writeHead(resp.statusCode, {
-          ...resp.headers,
-          'Access-Control-Allow-Origin': '*'
-        })
-        resp.pipe(res)
-      })
-      return
-    }
 
-    // Serve
-    const handler = async (data) => {
-      const fm = new Formatter(data)
+app.get("/view", async(req,res) => {
+    let id = req.query.key;
+    if(!id) return res.status(404).end();
+    let ticketDB = await db.GetTranscript(id);
+    if(!ticketDB || !ticketDB.closed) return res.status(404).end();
+    let data = JSON.parse(fs.readFileSync(join(__dirname, `../transcripts/${id}.json`)));
+    if(!data) return res.status(404).end();
+    const fm = new Formatter(data)
       const formatted = await fm.format()
       if (!formatted) {
         res.writeHead(400)
         return res.end()
       }
-      const hostname = config.hostname ? config.hostname : `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`
-      ejs.renderFile('./views/index.ejs', {
+      const hostname = `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`
+      res.render('index', {
         data: formatted,
         assets,
         markdown,
-        hostname
-      }, null, (err, str) => {
-        if (err) {
-          res.writeHead(500)
-          res.end('Internal Server Error')
-          console.error(err)
-        }
-        res.end(minify(str, {
-          collapseWhitespace: true,
-          removeComments: true
-        }))
+        hostname,
+        key: id
       })
-    }
+      
+})
+app.get("/download", async(req,res) => {
+    let key = req.query.key;
+    if(!key) return res.status(404).end();
 
-    res.setHeader('content-type', 'text/html')
-    if (req.method === 'POST') {
-      let data = ''
-      req.on('data', chunk => (data += chunk))
-      req.on('end', () => handler(JSON.parse(data)))
+    if(!fs.existsSync(join(__dirname, `../download/${key}/index.html`))){
+
+    const options = {
+  urls: [`${config.hostname}/view?key=${key}`],
+  directory: './download/' + key,
+     recursive: true,
+};
+const result = await scrape(options);
+
+res.download(join(__dirname, `../download/${key}/index.html`))
     } else {
-      return handler(testData)
+        res.download(join(__dirname, `../download/${key}/index.html`));
     }
-  }).listen(config.port)
+})
+
+app.listen(1234);
+
+}
