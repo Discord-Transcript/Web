@@ -1,10 +1,8 @@
-# Discord Chat Replica
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Naila/Discord-chat-replica)](https://dependabot.com)
+# Discord Transcript Web
 
-A small microservice to generate a Discord-like chat section.
+Web handler for [Discord Transcript](https://github.com/JustBeingAbdi/Discord-Transcript)
 
 ## installation
-~~you dont~~
 
  - git clone
  - pnpm i
@@ -12,5 +10,5 @@ A small microservice to generate a Discord-like chat section.
  - create config.json
  - pm2 start pm2.json
 
-## request format
-see example.json
+
+View more details on [Discord Transcript](https://github.com/JustBeingAbdi/Discord-Transcript)
