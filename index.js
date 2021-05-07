@@ -82,7 +82,7 @@ app.post("/new", async(req,res) => {
 
 
     const options = {
-  urls: [`${config.hostname}/view?id=${id}`],
+  urls: [`${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}/view?id=${id}`],
   directory: './download/' + id,
      recursive: true,
 };
@@ -98,4 +98,4 @@ return res.send(msg.attachments.first().id);
 });
 
 
-app.listen(1234);
+app.listen(config.port)
