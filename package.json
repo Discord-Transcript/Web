@@ -1,8 +1,8 @@
 {
-  "name": "discord-chat-replica",
+  "name": "discord-transcript-web",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Cynthia <cynthia@cynthia.dev>",
+  "author": "Abdi Hassan",
   "license": "OSL-3.0",
   "scripts": {
     "build-scss": "sass -s compressed style/style.scss:dist/style.css && node dl-font.js",
