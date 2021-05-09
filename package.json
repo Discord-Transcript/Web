@@ -7,8 +7,11 @@
   "scripts": {
     "build-scss": "sass -s compressed style/style.scss:dist/style.css && node dl-font.js",
     "build-js": "esbuild src/index.js --outfile=dist/script.js --bundle --minify --target=chrome85,firefox81,safari13,edge86 --define:process.env.NODE_ENV='\"production\"'",
-    "build": "pnpm run build-js && pnpm run build-scss"
+    "build": "npm i -g pnpm && npm run build1",
+    "build1": "pnpm run build-js && pnpm run build-scss",
+    "start": "node index.js"
   },
+  "engines" : { "node" : ">=0.12" },
   "dependencies": {
     "discord.js": "^12.5.3",
     "ejs": "^3.1.5",
@@ -19,7 +22,8 @@
     "punycode": "^2.1.1",
     "simple-markdown": "^0.7.2",
     "twemoji": "^13.0.1",
-    "website-scraper": "^4.2.3"
+    "website-scraper": "^4.2.3",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "esbuild": "^0.8.26",
