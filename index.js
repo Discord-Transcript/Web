@@ -45,6 +45,10 @@ app.use(express.urlencoded({
 	extended: false
 }));
 
+app.get("/logo.png", async(req,res) => {
+res.sendFile(join(__dirname, `./logo.png`));
+})
+
 
 
 app.get("/view", async(req,res) => {
