@@ -1,8 +1,7 @@
 /*
- * Copyright (c) 2020 Cynthia K. Rey
- * Licensed under the Open Software License version 3.0
+ * Copyright (c) 2021 Abdi Hassan
+ * Licensed under the MIT Licence
  */
-
 import './elements/ThemeSwitch'
 import './elements/DiscordMessages'
 import './elements/DiscordMessage'

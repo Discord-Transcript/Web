@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "Discord Chat Replica",
+      "name": "Discord Transcript Web",
       "script": "./index.js"
     }
   ]

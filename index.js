@@ -1,4 +1,7 @@
-
+/*
+ * Copyright (c) 2021 Abdi Hassan
+ * Licensed under the MIT License
+ */
 
 const { existsSync, createReadStream } = require('fs')
 const { resolve, join } = require('path')
