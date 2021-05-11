@@ -22,7 +22,7 @@ const scrape = require('website-scraper');
 // Stuff
 const assets = require('./src/assets')
 
-const testData = require('./example')
+
 const express = require("express");
 
 
