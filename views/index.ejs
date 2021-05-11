@@ -28,6 +28,8 @@
     <script>
         window.GLOBAL_ENV = { HOSTNAME: '<%= hostname %>' };
         <%- assets.script %>
+        
+        document.getElementById("download").href = `${window.location.href}&download=true`;
     </script>
 </head>
 <body class='theme-dark'>
@@ -38,7 +40,7 @@
             <div class='channel-icon'></div>
             <h1>Welcome to <b>#<%= data.channel_name %></b>!</h1>
             <div>This is the start of the #<%= data.channel_name %>.</div>
-            <div>Generated With <a href="https://github.com/JustBeingAbdi/Discord-Transcript">Discord Transcript</a></div>
+            <div>Generated With <a href="https://github.com/JustBeingAbdi/Discord-Transcript">Discord Transcript</a> | <a id="download" href="">Download Transcript</a></div>
         </div>
         <!--suppress HtmlUnknownTag-->
         <discord-messages>
@@ -64,4 +66,5 @@
         </span>
     </footer>
 </body>
+
 </html>
