@@ -14,4 +14,4 @@ Web handler for [Discord Transcript](https://github.com/JustBeingAbdi/Discord-Tr
 View more details on [Discord Transcript](https://github.com/JustBeingAbdi/Discord-Transcript)
 
 
-**Notice** This Branch is only for heroku deployment or enviroment use.
+
