@@ -19,6 +19,10 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const scrape = require('website-scraper');
 
+if(process.env.HEROKU === 'false'){
+    require("dotenv").config();
+}
+
 // Stuff
 const assets = require('./src/assets')
 

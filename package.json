@@ -11,9 +11,13 @@
     "build1": "pnpm run build-js && pnpm run build-scss",
     "start": "node index.js"
   },
-  "engines" : { "node" : ">=0.12" },
+  "engines": {
+    "node": ">=0.12"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
     "discord.js": "^12.5.3",
+    "dotenv": "^9.0.2",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "highlight.js": "^10.4.1",
@@ -22,8 +26,7 @@
     "punycode": "^2.1.1",
     "simple-markdown": "^0.7.2",
     "twemoji": "^13.0.1",
-    "website-scraper": "^4.2.3",
-    "cors": "^2.8.5"
+    "website-scraper": "^4.2.3"
   },
   "devDependencies": {
     "esbuild": "^0.8.26",
