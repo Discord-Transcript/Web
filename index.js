@@ -36,7 +36,7 @@ const express = require("express");
 
 client.login(process.env.TOKEN);
 
-
+ 
 
 let app = express();
 app.use(cors());
@@ -119,7 +119,7 @@ let msg = await channel.send(attachment);
  
  res.send(`${msg.attachments.first().id || 'unknown'} ${msg.attachments.first().url}`);
 	
-	return msg.delete();
+	
 	
 });
 
