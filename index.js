@@ -28,7 +28,7 @@ const express = require("express");
 
 
 
-client.login(process.env.token);
+client.login(process.env.TOKEN);
 
 
 
