@@ -22,6 +22,7 @@ import { copy, contextMenu } from './utils'
 // Context menus
 window.addEventListener('contextmenu', e => {
   e.preventDefault()
+  
   // Remove any previous context menu
   const el = document.querySelector('.context-menu')
   if (el) el.remove()
