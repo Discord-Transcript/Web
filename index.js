@@ -112,7 +112,7 @@ app.all("/new", async(req,res) => {
 	
 const options = {
   urls: [`http://143.198.247.160:3001/view?id=${id}`],
-  directory: `/download/${id}`
+  directory: `./download/${id}`
 };
  
 // with async/await
