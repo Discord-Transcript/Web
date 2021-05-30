@@ -127,6 +127,15 @@ let channel = await client.channels.cache.get(process.env.LOG_CHANNEL);
 let msg = await channel.send(attachment);
  
  res.send(`${msg.attachments.first().id || 'unknown'} ${msg.attachments.first().url}`);
+
+
+ setTimeout(function() {
+
+    fs.rmdirSync(join(__dirname, `./download/${id}`));
+
+
+
+ }, 60000)
 	
 	
 	
